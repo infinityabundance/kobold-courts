@@ -1,0 +1,35 @@
+{
+  "schema": "kobold-claim-ladder-v1",
+  "doctrine": "Every court pairs a proven claim with a louder non-claim; negative capability is the trust surface.",
+  "oracle": "an admitted ground-truth oracle (e.g. a pinned reference implementation)",
+  "courts": [
+    {
+      "id": "GNURUST.EXAMPLE.1",
+      "name": "example sealed byte court",
+      "proven": "decodes the field bytes exactly; round-trips the sign",
+      "byte_domain": "field-storage bytes",
+      "oracle": "pinned reference impl",
+      "fixtures": "example_sweep 100/0",
+      "sealed_version": "0.1.0",
+      "not_proven": "arithmetic; edited pictures; other dialects; runtime control flow",
+      "breaks_claim": "computing a result; executing a statement",
+      "readiness": 3,
+      "lie_prevented": "decoding is not execution",
+      "damage_if_overclaimed": "treating a decode as a runtime guarantee"
+    },
+    {
+      "id": "EXAMPLE.OBSERVED.ATLAS.1",
+      "name": "example observed atlas",
+      "proven": "observes a runtime behavior under the witness",
+      "byte_domain": "observed behavior",
+      "oracle": "the admitted oracle",
+      "fixtures": "atlas_sweep 5/0",
+      "sealed_version": "observed atlas",
+      "not_proven": "implementing the behavior; all dialects; runtime execution",
+      "breaks_claim": "executing the observed behavior",
+      "readiness": 3,
+      "lie_prevented": "observing is not implementing",
+      "damage_if_overclaimed": "treating the observation as an implementation"
+    }
+  ]
+}
