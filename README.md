@@ -13,6 +13,10 @@ A reusable, generalized model of the court method -- it operates on ANY claim-la
   (and unique ids). `Court::positive_claims()/negative_claims()` split `proven`/`not_proven` faithfully.
 - `Casefile::from_court()` -- the binding forensic record per court.
 - CLI: `kobold-courts validate|summary|casefiles <claim-ladder.json>`.
+- **Forensic casefile generator** (`forensic` module; lab/casefile successor): `casefile generate|check
+  --root <repo>` builds the rich machine-verifiable casefile (claims, non-claims, NEG ids, evidence hashes,
+  replay, oracle profile, verdict from the TRUST.2 receipt) + casefile.md + sarif.json, and the `check`
+  regenerates+diffs and enforces negatives>=positives / damage_if_overclaimed / receipt presence.
 
 ```
 cargo run -- check --root path/to/repo        # verify <repo>/reports/claim-ladder.json

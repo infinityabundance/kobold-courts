@@ -11,6 +11,8 @@
 //! claims (its loud non-claims) must be at least as many as its positive claims.
 
 use serde::{Deserialize, Serialize};
+
+pub mod forensic;
 use std::collections::HashSet;
 use std::path::Path;
 
