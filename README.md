@@ -15,6 +15,7 @@ A reusable, generalized model of the court method -- it operates on ANY claim-la
 - CLI: `kobold-courts validate|summary|casefiles <claim-ladder.json>`.
 
 ```
+cargo run -- check --root path/to/repo        # verify <repo>/reports/claim-ladder.json
 cargo run -- validate  path/to/claim-ladder.json
 cargo run -- summary   path/to/claim-ladder.json
 cargo run -- casefiles path/to/claim-ladder.json   # one JSON casefile per line

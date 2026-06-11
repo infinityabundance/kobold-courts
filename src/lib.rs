@@ -168,6 +168,12 @@ impl CourtSet {
         Ok(Self::from_json(&std::fs::read_to_string(path)?)?)
     }
 
+    /// Load from a repo root: `<root>/reports/claim-ladder.json`. This is the consumption entry point
+    /// for `kobold-courts check --root <repo>` (gnucobol-rs verifies its OWN evidence via this tool).
+    pub fn load_root(root: impl AsRef<Path>) -> Result<Self, Box<dyn std::error::Error>> {
+        Self::load(root.as_ref().join("reports").join("claim-ladder.json"))
+    }
+
     /// Validate: unique ids, and negatives >= positives for every court.
     pub fn validate(&self) -> Vec<Violation> {
         let mut v = Vec::new();
@@ -252,5 +258,19 @@ mod tests {
         assert!(cs.validate().is_empty(), "fixture must be clean: {:?}", cs.validate());
         assert_eq!(cs.casefiles().len(), cs.ladder.courts.len());
         assert_eq!(cs.court("GNURUST.EXAMPLE.1").map(|c| c.kind()), Some("court"));
+    }
+
+    #[test]
+    fn frozen_gnucobol_rs_ladder_reproduces_the_verdict() {
+        // Commit-1 proof: kobold-courts reproduces gnucobol-rs's court verdict on its FROZEN evidence,
+        // exactly as the lab's casefile gate did (negatives >= positives, ids unique), before extraction.
+        let root = concat!(env!("CARGO_MANIFEST_DIR"), "/tests/fixtures/frozen");
+        let cs = CourtSet::load_root(root).expect("load frozen root");
+        assert!(cs.ladder.courts.len() >= 90, "frozen ladder has the real court set");
+        assert!(
+            cs.validate().is_empty(),
+            "frozen gnucobol-rs ladder must verify clean: {:?}",
+            cs.validate()
+        );
     }
 }
