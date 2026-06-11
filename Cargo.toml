@@ -7,7 +7,6 @@ authors = ["infinityabundance"]
 license = "Apache-2.0"
 repository = "https://github.com/infinityabundance/kobold-courts"
 readme = "README.md"
-publish = false  # flip to publishable once the API stabilizes
 
 [dependencies]
 serde = { version = "1", features = ["derive"] }
